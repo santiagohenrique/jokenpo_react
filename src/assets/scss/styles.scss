@@ -25,6 +25,7 @@ body{
         .play_section{
             display: flex;
             gap: 1rem;
+            position: relative;
 
             .options_container{
                 display: flex;
@@ -45,6 +46,35 @@ body{
                     }
                 }  
             }
+        }
+
+        .message_container {
+            align-self: flex-end;
+            text-align: center;
+            margin-top: 1rem; 
+
+            .message{
+                font-size: 1.3rem;
+            }
+
+            &.win {
+                .message {
+                  color: #087a04; // Cor do texto para vitória
+                }
+            }
+            
+            &.lose {
+                .message {
+                  color: #aa0202; // Cor do texto para derrota
+                }
+            }
+            
+            &.draw {
+                .message {
+                  color: #f38201; // Cor do texto para empate
+                }
+            }
+
         }
 
         .scoreboard_section{
@@ -69,7 +99,7 @@ body{
                       @include scoreboard-box(#aa0202); // Derrotas
                     }
                     &:nth-child(3) {
-                      @include  scoreboard-box(#cfcf00); // Empates
+                      @include  scoreboard-box(#f38201); // Empates
                     }
                 }
             }

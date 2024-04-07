@@ -1,33 +1,13 @@
-import { useState } from 'react'
+import React from 'react'
 import { Button } from './assets/components/Button'
 import { ChoiceContainer } from './assets/components/ChoiceContainer'
 import { ScoreboardBox } from './assets/components/ScoreboardBox'
 import './assets/scss/styles.scss'
+import { useGameLogic, Choice } from './hooks/useGameLogic'
 
 function App() {
 
-  const [playerChoice, setPlayerChoice] = useState<string | undefined>();
-  const [machineChoice, setMachineChoice] = useState<string | undefined>();
-
-  const handlePlayerChoice = (choice: string) => {
-    setPlayerChoice(choice)
-    handleMachineChoice()
-  }
-
-  const handleMachineChoice = () => {
-    const randomNumber = Math.random();
-    if(randomNumber <= 0.33){
-      setMachineChoice("✊")
-    } else if (randomNumber <= 0.66) {
-      setMachineChoice("🖐️")
-    } else{
-      setMachineChoice("✌️")
-    }
-  }
-
-  const handleResetScore = () => {
-    alert('teste')
-  }
+  const { playerChoice, machineChoice, statistics, message, handlePlayerChoice, handleResetScore } = useGameLogic();
 
   return (
 
@@ -35,18 +15,26 @@ function App() {
       <div className="container_game">
         <section className="play_section">
           <div className="options_container">
-            <Button onClick={() => handlePlayerChoice("✊")} buttonText="&#x270A;" />
-            <Button onClick={() => handlePlayerChoice("🖐️")} buttonText="&#x1F590;" />
-            <Button onClick={() => handlePlayerChoice("✌️")} buttonText="&#x270C;" />
+            <Button onClick={() => handlePlayerChoice(Choice.Rock)} buttonText="&#x270A;" />
+            <Button onClick={() => handlePlayerChoice(Choice.Paper)} buttonText="&#x1F590;" />
+            <Button onClick={() => handlePlayerChoice(Choice.Scissors)} buttonText="&#x270C;" />
           </div>
           <ChoiceContainer typeOfPlayer='Jogador' choice={playerChoice} />
           <ChoiceContainer typeOfPlayer='Máquina' choice={machineChoice} />
         </section>
+        {message && 
+        (
+          <React.Fragment>
+            <div className={`message_container ${message === 'Você venceu!' ? 'win' : message === 'Você perdeu!' ? 'lose' : 'draw'}`}>
+              <span className="message">{message}</span>
+            </div>
+          </React.Fragment>
+        )}
         <section className="scoreboard_section">
           <div className='scoreboard_container'>
-            <ScoreboardBox text='V: 0' />
-            <ScoreboardBox text='D: 0' />
-            <ScoreboardBox text='E: 0' />
+            <ScoreboardBox text={`V: ${statistics.wins}`} />
+            <ScoreboardBox text={`D: ${statistics.losses}`} />
+            <ScoreboardBox text={`E: ${statistics.draws}`} />
           </div>
           <Button onClick={handleResetScore} buttonText="Reiniciar placar" customClassName="scoreboard_button" />
         </section>
