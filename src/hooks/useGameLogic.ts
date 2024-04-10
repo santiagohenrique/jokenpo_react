@@ -1,21 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
-
-export enum Choice {
-    Rock = "✊",
-    Paper = "🖐️",
-    Scissors = "✌️"
-}
-
-interface Statistics {
-    wins: number;
-    losses: number;
-    draws: number;
-}
-
-interface PlayerData {
-    playerMoves: number;
-    playerChoice?: Choice;
-}
+import { Statistics } from '../types';
+import { PlayerData } from '../types';
+import { Choice } from '../enums/Choice';
 
 export const useGameLogic = () => {
 
