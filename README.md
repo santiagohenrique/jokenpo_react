@@ -4,8 +4,17 @@
 - O código fornecido é um jogo simples de Pedra, Papel e Tesoura, também conhecido como Jokenpô, desenvolvido em React. Ele permite que o usuário jogue contra a máquina, fazendo escolhas entre pedra, papel ou tesoura, e exibe o resultado do jogo (vitória, derrota ou empate), além de manter um placar de estatísticas.
 
 # Deploy
-- Link: https://santiagohenrique.github.io/jokenpo_react/
-- 
+- Visitar o site: https://santiagohenrique.github.io/jokenpo_react/
+
+- Layout desktotp
+<div>
+  <img src="https://github.com/santiagohenrique/jokenpo_react/assets/88721828/2ac53423-2571-4716-ad7f-83450fd3c06b" width="400px" />
+</div>
+
+- Layout para dispositivos menores
+<div>
+  <img src="https://github.com/santiagohenrique/jokenpo_react/assets/88721828/c58d45ab-9713-4ec4-820b-b9f742970278" width="400px" />
+</div>
 
 ## Características
 - Interface simples e intuitiva.
