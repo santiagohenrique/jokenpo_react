@@ -1,13 +1,13 @@
 import React from 'react'
-import { Button } from './assets/components/Button'
-import { ChoiceContainer } from './assets/components/ChoiceContainer'
-import { ScoreboardBox } from './assets/components/ScoreboardBox'
+import { Button } from './components/Button'
+import { ChoiceContainer } from './components/ChoiceContainer'
+import { ScoreboardBox } from './components/ScoreboardBox'
 import './assets/scss/styles.scss'
 import { useGameLogic, Choice } from './hooks/useGameLogic'
 
 function App() {
 
-  const { playerChoice, machineChoice, statistics, message, handlePlayerChoice, handleResetScore } = useGameLogic();
+  const { playerData, machineChoice, statistics, message, handlePlayerChoice, handleResetScore } = useGameLogic();
 
   return (
 
@@ -19,7 +19,7 @@ function App() {
             <Button onClick={() => handlePlayerChoice(Choice.Paper)} buttonText="&#x1F590;" />
             <Button onClick={() => handlePlayerChoice(Choice.Scissors)} buttonText="&#x270C;" />
           </div>
-          <ChoiceContainer typeOfPlayer='Jogador' choice={playerChoice} />
+          <ChoiceContainer typeOfPlayer='Jogador' choice={playerData.playerChoice} />
           <ChoiceContainer typeOfPlayer='Máquina' choice={machineChoice} />
         </section>
         {message && 

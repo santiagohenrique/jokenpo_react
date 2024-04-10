@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react';
 
 export enum Choice {
     Rock = "✊",
@@ -12,35 +12,43 @@ interface Statistics {
     draws: number;
 }
 
+interface PlayerData {
+    playerMoves: number;
+    playerChoice?: Choice;
+}
+
 export const useGameLogic = () => {
-    const [playerChoice, setPlayerChoice] = useState<Choice | undefined>();
+
+    const [playerData, setPlayerData] = useState<PlayerData>({ playerMoves: 0 });
     const [machineChoice, setMachineChoice] = useState<Choice | undefined>();
     const [statistics, setStatistics] = useState<Statistics>({ wins: 0, losses: 0, draws: 0 });
     const [message, setMessage] = useState<string | undefined>();
 
-
     const handlePlayerChoice = (choice: Choice) => {
-        setPlayerChoice(choice);
+        setPlayerData(prevPlayerData => ({
+            ...prevPlayerData,
+            playerChoice: choice,
+            playerMoves: prevPlayerData.playerMoves + 1
+        }));
     }
-    
+
     const handleMachineChoice = useCallback(() => {
         const randomChoice = Math.floor(Math.random() * 3);
         const choices = Object.values(Choice);
         const machineChoice = choices[randomChoice] as Choice;
         setMachineChoice(machineChoice);
-        determineWinner(playerChoice, machineChoice);
-    }, [playerChoice]);
+        determineWinner(playerData.playerChoice, machineChoice);
+    }, [playerData.playerChoice]);
 
     useEffect(() => {
-        if (playerChoice !== undefined) {
+        if (playerData.playerMoves) {
             handleMachineChoice();
         }
-    }, [playerChoice, handleMachineChoice]);
-
+    }, [playerData.playerMoves, handleMachineChoice]);
 
     const determineWinner = (player: Choice | undefined, machine: Choice | undefined) => {
         if (!player || !machine) return;
-    
+
         if (player === machine) {
             setMessage("Partida empatada");
             setStatistics(prevStats => ({ ...prevStats, draws: prevStats.draws + 1 }));
@@ -59,13 +67,13 @@ export const useGameLogic = () => {
 
     const handleResetScore = () => {
         setMessage(undefined);
-        setPlayerChoice(undefined)
-        setMachineChoice(undefined)
+        setPlayerData({ playerMoves: 0 });
+        setMachineChoice(undefined);
         setStatistics({ wins: 0, losses: 0, draws: 0 });
     }
 
     return {
-        playerChoice,
+        playerData,
         machineChoice,
         statistics,
         message,
