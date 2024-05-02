@@ -6,7 +6,7 @@
 # Deploy
 - Visitar o site: https://santiagohenrique.github.io/jokenpo_react/
 
-- Layout desktotp
+- Layout desktop
 <div>
   <img src="https://github.com/santiagohenrique/jokenpo_react/assets/88721828/2ac53423-2571-4716-ad7f-83450fd3c06b" width="400px" />
 </div>
